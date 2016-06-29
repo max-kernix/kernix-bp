@@ -7,6 +7,7 @@ var
   imagemin          = require('gulp-imagemin'),
   livereload        = require('gulp-livereload'),
   less              = require('gulp-less'),
+  lesshint          = require('gulp-lesshint'),
   mainBowerFiles    = require('main-bower-files'),
   plumber           = require('gulp-plumber'),
   postcss           = require('gulp-postcss'),
@@ -114,12 +115,22 @@ gulp.task('less', function () {
 
 
 
+gulp.task('lintLess', function() {
+  return gulp.src('./less/*.less')
+    .pipe(lesshint({
+        // Options
+    }))
+    .pipe(lesshint.reporter('')); // Leave empty to use the default, "stylish"
+});
+
+
+
 //// gulp watch
 // Recompile on change
 gulp.task('watch', function () {
   livereload.listen();
   gulp.watch('./html/**/*.html', ['html']);
-  gulp.watch('./less/**/*.less', ['less']);
+  gulp.watch('./less/**/*.less', ['lintLess', 'less']);
   // gulp.watch('./js/**/*.js', ['webpack']); // ko, miss .pipe(livereload()); in gulp webpack task
 });
 

@@ -40,11 +40,13 @@ src/assets
 
 ## Dependencies
 - autoprefixer // Css prefixes
+- chalk // Colored console
 - gulp // Task manager
 - gulp-clean // Remove /dist content via gulp cean
 - gulp-clean-css // Minify css
 - gulp-imagemin // Minify images
 - gulp-less // Compiles less
+- gulp-lesshint // Less linter (beautify code by displaying warnings)
 - gulp-livereload // Reload browser on modifications, trough watch task
 - gulp-plumber // Allow better plugins error management (don't ko on watch)
 - gulp-postcss // Parse css only once
@@ -54,6 +56,7 @@ src/assets
 - gulp-zip // Make a zip file out of a folder
 - lodash // Js utility functions
 - main-bower-files // Bower imports
+- normalize.less // Less
 - run-sequence // Allow to wait for tasks to end before lunching others
 - webpack // Compiles Js
 
