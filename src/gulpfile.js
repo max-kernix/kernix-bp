@@ -194,7 +194,7 @@ gulp.task('lintLess', function() {
 // Recompile on change
 gulp.task('watch', function () {
   livereload.listen();
-  gulp.watch('./html/**/*.html', ['html']);
+  gulp.watch('./html/**/*.html', ['lintHtml', 'html']);
   gulp.watch('./less/**/*.less', ['lintLess', 'less']);
   gulp.watch('./js/**/*.js', ['js']); // ko, miss .pipe(livereload()); in gulp webpack task
 });
