@@ -66,10 +66,10 @@ Doc
 - Ressources location
 
 Rename gulp plugins variables in gulpfile (alpha)
-Add css resets
 Add mixins collections
 Add basic js (on resize throttle, etc.)
 Make gulp watch/livereload work on webpack
+Add clean less/js check on gulp & watch
 
 
 
