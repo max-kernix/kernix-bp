@@ -1,7 +1,15 @@
 {
   // gulp-lesshint configuration file. Gulp task "lintLess"
   // Config doc  /  https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md#zerounit
+  "importPath": {
+    "exclude": [
+      "node_modules/normalize.less/normalize" // why want to force _ ?
+    ],
+    "leadingUnderscore": true
+  },
   "zeroUnit": {
-      "exclude": "margin" // Comments are allowed
+      "exclude": [ // Some properties are allowed to equal 0
+        "margin"
+      ]
   }
 }
