@@ -2,9 +2,12 @@ var
   autoprefixer      = require('autoprefixer'),
   cleancss          = require('gulp-clean-css'),
   clean             = require('gulp-clean'),
+  concat            = require('gulp-concat'),
   gulp              = require('gulp'),
-  gutil             = require('gulp-util'),
+  html5Lint         = require('gulp-html5-lint'),
   imagemin          = require('gulp-imagemin'),
+  jshint            = require('gulp-jshint'),
+  jshintStylish     = require('jshint-stylish'),
   livereload        = require('gulp-livereload'),
   less              = require('gulp-less'),
   lesshint          = require('gulp-lesshint'),
@@ -13,8 +16,10 @@ var
   postcss           = require('gulp-postcss'),
   runSequence       = require('run-sequence'),
   sourcemaps        = require('gulp-sourcemaps'),
+  uglify            = require('gulp-uglify'),
+  util              = require('gulp-util'),
   watch             = require('gulp-watch'),
-  webpack           = require('webpack'),
+  // webpack           = require('webpack'),
   zip               = require('gulp-zip');
 
 
@@ -66,7 +71,7 @@ gulp.task('clean', function () {
 
 //// gulp dist
 // Default task, create prod files in app
-gulp.task('dist', ['bower', 'html', 'less', 'webpack', 'assets']);
+gulp.task('dist', ['bower', 'html', 'less', 'js', 'assets']);
 
 
 
@@ -86,6 +91,57 @@ gulp.task('images', function () {
   return gulp.src('assets/visuals/images/**/*')
     .pipe(imagemin())
     .pipe(gulp.dest('../dist/assets/visuals/images/'))
+});
+
+
+
+//// gulp js
+// Compile js through webpack
+gulp.task('js', function (callback) {
+  return gulp.src('./js/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(uglify({
+      output: {
+        'ascii_only': true
+      }
+    }))
+    .pipe(concat('bundle.js'))
+    .pipe(gulp.dest('../dist/assets/js/'))
+    .pipe(livereload());
+  /*
+  // old / weback
+  // livereload ?
+  webpack({
+    entry: {
+      main: './js/bundle.js'
+    },
+    output: {
+      filename: '../dist/assets/js/bundle.js',
+    },
+    plugins: [
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    ],
+    resolve: {
+      extensions: ['', '.js']
+    },
+    externals: {
+      'jquery': 'jQuery'
+    }
+  }, function (err, stats) {
+    if (err)
+      throw new util.PluginError('webpack', err);
+
+    util.log('[webpack]', stats.toString());
+    livereload();
+
+    callback();
+  })
+
+  //.pipe(livereload()
+  */
 });
 
 
@@ -115,6 +171,15 @@ gulp.task('less', function () {
 
 
 
+// Html hints for clean code //  Used on watch
+gulp.task('lintHtml', function() {
+  return gulp.src('./html/**/*.html') // omit less/bundle.less // lesshint doesn't manage well imports
+    .pipe(html5Lint());
+});
+
+
+
+// Less hints for clean code //  Used on watch
 gulp.task('lintLess', function() {
   return gulp.src('./less/**/*.less') // omit less/bundle.less // lesshint doesn't manage well imports
     .pipe(lesshint({
@@ -131,37 +196,7 @@ gulp.task('watch', function () {
   livereload.listen();
   gulp.watch('./html/**/*.html', ['html']);
   gulp.watch('./less/**/*.less', ['lintLess', 'less']);
-  // gulp.watch('./js/**/*.js', ['webpack']); // ko, miss .pipe(livereload()); in gulp webpack task
-});
-
-
-
-//// gulp webpack
-// Compile js
-gulp.task('webpack', function (callback) {
-  webpack({
-    entry: {
-      main: './js/bundle.js'
-    },
-    output: {
-      filename: '../dist/assets/js/bundle.js',
-    },
-    plugins: [
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    ],
-    resolve: {
-      extensions: ['', '.js']
-    },
-    externals: {
-      'jquery': 'jQuery'
-    }
-  }, function (err, stats) {
-    if (err) throw new gutil.PluginError('webpack', err);
-    gutil.log('[webpack]', stats.toString());
-    callback();
-  });
+  gulp.watch('./js/**/*.js', ['js']); // ko, miss .pipe(livereload()); in gulp webpack task
 });
 
 
@@ -186,7 +221,10 @@ gulp.task('zip', ['dist'], function() {
 
 
 
-
+gulp.task('hello', function() {
+  // util.log('Hello world!');
+  console.log('Hello world!');
+});
 
 
 

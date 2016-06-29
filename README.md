@@ -44,21 +44,25 @@ src/assets
 - gulp // Task manager
 - gulp-clean // Remove /dist content via gulp cean
 - gulp-clean-css // Minify css
+- gulp-html5-lint // Display html warnigns & errors
 - gulp-imagemin // Minify images
+- gulp-jshint // Js linter
 - gulp-less // Compiles less
 - gulp-lesshint // Less linter (beautify code by displaying warnings)
 - gulp-livereload // Reload browser on modifications, trough watch task
 - gulp-plumber // Allow better plugins error management (don't ko on watch)
 - gulp-postcss // Parse css only once
 - gulp-sourcemaps // Css sourcemaps (better debug despite minify)
+- gulp-uglify // Minify js
 - gulp-util // Logs, colors, etc.
 - gulp-watch // Stream src modifications
 - gulp-zip // Make a zip file out of a folder
+- jshint-stylish // Better display of js warnings & errors
 - lodash // Js utility functions
 - main-bower-files // Bower imports
 - normalize.less // Less
 - run-sequence // Allow to wait for tasks to end before lunching others
-- webpack // Compiles Js
+// - webpack // Compiles Js
 
 
 
@@ -68,11 +72,10 @@ Doc
 - Main commands/tasks
 - Ressources location
 
-Rename gulp plugins variables in gulpfile (alpha)
+Add clean js check on gulp & watch
 Add mixins collections
 Add basic js (on resize throttle, etc.)
 Make gulp watch/livereload work on webpack
-Add clean less/js check on gulp & watch
 
 
 
