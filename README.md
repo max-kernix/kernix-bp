@@ -72,10 +72,13 @@ Doc
 - Main commands/tasks
 - Ressources location
 
-Add clean js check on gulp & watch
+Add basic js
+- eEasy imports
+- on resize throttle
+
 Add mixins collections
-Add basic js (on resize throttle, etc.)
-Make gulp watch/livereload work on webpack
+
+Remove FOUC
 
 
 
