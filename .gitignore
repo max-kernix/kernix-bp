@@ -1,1 +1,52 @@
+## Gulp generated folders & files
 /dist
+dist.zip
+
+
+## Dependecies
+/node_modules
+/bower_components
+
+## OS generated files
+.DS_Store?
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+
+## IDE's
+.idea
+.projects
+.netbeans
+.metadata
+.project
+.settings
+.svn
+
+# helpers
+*.patch
+.phpstorm.meta.php
+*.phpstorm.meta.php
+/nbproject
+/nbproject/private/
+
+# sublime
+*.sublime-project
+*.sublime-workspace
+
+#editor old files(emacs,jed)
+*~
+
+
+## Archives
+*.tar.gz
+*.tar.bz2
+*.gz
+*.zip
+*.bz2
+*.rar
+
+
+## Sql dumps
+*.sql
+/dumps/
