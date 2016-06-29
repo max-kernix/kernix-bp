@@ -1,0 +1,7 @@
+{
+  // gulp-lesshint configuration file. Gulp task "lintLess"
+  // Config doc  /  https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md#zerounit
+  "zeroUnit": {
+      "exclude": "margin" // Comments are allowed
+  }
+}

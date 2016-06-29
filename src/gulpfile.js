@@ -116,9 +116,9 @@ gulp.task('less', function () {
 
 
 gulp.task('lintLess', function() {
-  return gulp.src('./less/*.less')
+  return gulp.src('./less/**/*.less') // omit less/bundle.less // lesshint doesn't manage well imports
     .pipe(lesshint({
-        // Options
+      'configPath': 'less/.lesshintrc' // Path to .lesshintrc config file
     }))
     .pipe(lesshint.reporter('')); // Leave empty to use the default, "stylish"
 });
