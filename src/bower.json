@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "mchevasson@kernix.com"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  },
+  "description": "Kernix boilerplate : gulp, less, basic structure",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "name": "kernix-bp",
+  "license": "ISC",
+  "private": true
+}

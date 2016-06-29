@@ -1,0 +1,27 @@
+{
+  "author": "mchevasson@kernix.com",
+  "description": "Kernix boilerplate : gulp, less, basic structure",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.6",
+    "gulp-zip": "^3.2.0",
+    "lodash": "^4.13.1",
+    "main-bower-files": "^2.13.1",
+    "run-sequence": "^1.2.1",
+    "webpack": "^1.13.1"
+  },
+  "license": "ISC",
+  "name": "kernix-bp",
+  "private": true,
+  "version": "0.0.1"
+}
