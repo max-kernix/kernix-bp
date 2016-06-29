@@ -98,9 +98,17 @@ gulp.task('images', function () {
 //// gulp js
 // Compile js through webpack
 gulp.task('js', function (callback) {
-  return gulp.src('./js/**/*.js')
+  // Jshint our files only
+  // gulp.src('./js/**/*.js')
+  return gulp.src([
+    // './node_modules/jquery/dist/jquery.min.js', // jquery // jshint ko, added directly in index.html
+    './js/**/*.js'
+  ])
+    // .pipe(jshint('./js/.jshintrc')) // path to config file ko. // 0fcks given about .jshintignore too
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
+    // .pipe(jshint.reporter('fail'))
+
     .pipe(uglify({
       output: {
         'ascii_only': true
@@ -109,12 +117,15 @@ gulp.task('js', function (callback) {
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('../dist/assets/js/'))
     .pipe(livereload());
+
+  // no livereload w webpack ? :/
   /*
-  // old / weback
-  // livereload ?
   webpack({
     entry: {
-      main: './js/bundle.js'
+      main: [
+        './node_modules/jquery/dist/jquery.min.js', // jquery
+        './js/bundle.js'
+      ]
     },
     output: {
       filename: '../dist/assets/js/bundle.js',
@@ -135,7 +146,7 @@ gulp.task('js', function (callback) {
       throw new util.PluginError('webpack', err);
 
     util.log('[webpack]', stats.toString());
-    livereload();
+    livereload(); // ko ?
 
     callback();
   })
