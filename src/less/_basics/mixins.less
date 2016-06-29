@@ -1,5 +1,381 @@
 //// Mixins stylesheet
 /// Place here your mixins
+// http://lesselements.com/
+// https://css-tricks.com/snippets/css/useful-css3-less-mixins/
+// + customs
+
+.animation (@name, @duration: 300ms, @delay: 0, @ease: ease) {
+  -webkit-animation: @name @duration @delay @ease;
+  -moz-animation:    @name @duration @delay @ease;
+  -ms-animation:     @name @duration @delay @ease;
+}
+.background-clip(@argument: padding-box) {
+  -moz-background-clip: @argument;
+  -webkit-background-clip: @argument;
+  background-clip: @argument;
+}
+// Svg pixel
+.background-line(@first-color) {
+  @first: escape('@{first-color}');
+  @svg: "<svg xmlns='http://www.w3.org/2000/svg' width='1px' height='1px'><rect x='0' y='0' width='1' height='1' fill='@{first}' /></svg>";
+  background-image:url("data:image/svg+xml;utf8,@{svg}");
+}
+// Svg double line
+.background-line(@first-color, @second-color) {
+  @first: escape('@{first-color}');
+  @second: escape('@{second-color}');
+  @svg: "<svg xmlns='http://www.w3.org/2000/svg' width='1440px' height='1px'><rect x='0' y='0' width='820' height='1' fill='@{first}' /><rect x='820' y='0' width='620' height='1' fill='@{second}' /></svg>";
+  background-image:url("data:image/svg+xml;utf8,@{svg}");
+}
+.border(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
+  border-top: solid 1px @top-color;
+  border-left: solid 1px @left-color;
+  border-right: solid 1px @right-color;
+  border-bottom: solid 1px @bottom-color;
+}
+.border-radius (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius:    @radius;
+  border-radius:         @radius;
+
+  -moz-background-clip:    padding;
+  -webkit-background-clip: padding-box;
+  background-clip:         padding-box;
+}
+.border-radiuses (@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+  -webkit-border-top-right-radius:    @topright;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-bottom-left-radius:  @bottomleft;
+  -webkit-border-top-left-radius:     @topleft;
+
+  -moz-border-radius-topright:        @topright;
+  -moz-border-radius-bottomright:     @bottomright;
+  -moz-border-radius-bottomleft:      @bottomleft;
+  -moz-border-radius-topleft:         @topleft;
+
+  border-top-right-radius:            @topright;
+  border-bottom-right-radius:         @bottomright;
+  border-bottom-left-radius:          @bottomleft;
+  border-top-left-radius:             @topleft;
+
+  -moz-background-clip:    padding;
+  -webkit-background-clip: padding-box;
+  background-clip:         padding-box;
+}
+.box-shadow (@string) {
+  -webkit-box-shadow: @string;
+  -moz-box-shadow:    @string;
+  box-shadow:         @string;
+}
+.box-sizing(@sizing: border-box) {
+  -ms-box-sizing: @sizing;
+  -moz-box-sizing: @sizing;
+  -webkit-box-sizing: @sizing;
+  box-sizing: @sizing;
+}
+.brightness(@value: 1) {
+  -webkit-filter: brightness(@value);
+  -moz-filter: brightness(@value);
+  -ms-filter: brightness(@value);
+  filter: brightness(@value);
+}
+.checkbox(){ text-align: center;
+  input[type="checkbox"] {
+    display: none;
+  }
+  label {
+    position: relative; padding-left: 40px;
+    .mqmx(@tablet, {
+      padding-left: 30px;
+    });
+  }
+  input[type="checkbox"] + label span {
+    vertical-align: middle; cursor: pointer; display: inline-block; height: 20px;
+    top: -8px;
+    position: absolute; left: 0;
+    &:before{
+      content:'\f279'; font-family: 'Material-Design-Iconic-Font'; font-size: 24px; color: @greyb;
+    }
+  }
+  input[type="checkbox"]:checked + label span { display: inline-block;
+    &:before{
+      content:'\f279'; font-family: 'Material-Design-Iconic-Font'; font-size: 24px; color: @greyb;
+    }
+    &:after{
+      content:'\f26b'; font-family: 'Material-Design-Iconic-Font'; position: absolute; top: 7px; left: 4px; font-size: 14px;
+    }
+
+  }
+}
+.color-fade-gradient(@color, @percentage: 50%) {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,fade(@color, 0)), color-stop(@percentage,fade(@color, 100%)), color-stop(100%,fade(@color, 100%)));
+  background: -webkit-linear-gradient(top,  fade(@color, 0) 0%,fade(@color, 100%) @percentage,fade(@color, 100%) 100%);
+  background: -o-linear-gradient(top,  fade(@color, 0) 0%,fade(@color, 100%) @percentage,fade(@color, 100%) 100%);
+  background: -ms-linear-gradient(top,  fade(@color, 0) 0%,fade(@color, 100%) @percentage,fade(@color, 100%) 100%);
+  background: linear-gradient(to bottom,  fade(@color, 0) 0%,fade(@color, 100%) @percentage,fade(@color, 100%) 100%);
+}
+.columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #EEE, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
+  -moz-column-width: @colwidth;
+  -moz-column-count: @colcount;
+  -moz-column-gap: @colgap;
+  -moz-column-rule-color: @columnRuleColor;
+  -moz-column-rule-style: @columnRuleStyle;
+  -moz-column-rule-width: @columnRuleWidth;
+  -webkit-column-width: @colwidth;
+  -webkit-column-count: @colcount;
+  -webkit-column-gap: @colgap;
+  -webkit-column-rule-color: @columnRuleColor;
+  -webkit-column-rule-style: @columnRuleStyle;
+  -webkit-column-rule-width: @columnRuleWidth;
+  column-width: @colwidth;
+  column-count: @colcount;
+  column-gap: @colgap;
+  column-rule-color: @columnRuleColor;
+  column-rule-style: @columnRuleStyle;
+  column-rule-width: @columnRuleWidth;
+}
+.desaturate(@value: 0.5) {
+  @pct: percentage(@value);
+  @svgvalue: (1 - @value);
+  filter: none;
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix in=\"SourceGraphic\" type=\'saturate\' values=\'@{svgvalue}\'/></filter></svg>#grayscale");
+  -webkit-filter: grayscale(@pct);
+  -moz-filter:    grayscale(@pct);
+  -ms-filter:     grayscale(@pct);
+  -o-filter:      grayscale(@pct);
+}
+.drop-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  -webkit-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+  -moz-box-shadow:	@x @y @blur @spread rgba(0, 0, 0, @alpha);
+  box-shadow:		@x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+.ellipsis (@lineHeight: 1.2em, @lineCount: 4) {
+// Fallback for non-webkit browsers.
+// Fallback does not render ellipsis.
+  overflow: hidden;
+  line-height: @lineHeight;
+  max-height: @lineHeight * @lineCount;
+
+  // Webkit solution for multiline ellipsis
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @lineCount;
+
+  text-overflow:ellipsis;
+
+  // Solution for Opera
+  text-overflow: -o-ellipsis-lastline;
+}
+// Ellipses textuelles
+.ellipsis-overflow() {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  .xs({
+//    flex-direction:column;
+display:block;
+> * { display:block; width:100%; }
+});
+}
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+  background: @color;
+  background: -webkit-gradient(linear,
+                               left bottom,
+                               left top,
+                               color-stop(0, @start),
+                               color-stop(1, @stop));
+  background: -ms-linear-gradient(bottom,
+                                  @start,
+                                  @stop);
+  background: -moz-linear-gradient(center bottom,
+                                   @start 0%,
+                                   @stop 100%);
+  background: -o-linear-gradient(@stop,
+                                 @start);
+  // find inline ignore for lesslint
+  // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
+}
+.horizontal-gradient (@startColor: #eee, @endColor: white) {
+  background-color: @startColor;
+  background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+  background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+  background-image: -moz-linear-gradient(left, @startColor, @endColor);
+  background-image: -ms-linear-gradient(left, @startColor, @endColor);
+  background-image: -o-linear-gradient(left, @startColor, @endColor);
+}
+.inner-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+  -webkit-box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+  -moz-box-shadow:    inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+  box-shadow:         inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+// Media queries
+.mqmn(@min-width; @rules) {
+  @media only screen and (min-width: @min-width) {
+    @rules();
+  }
+}
+.mqmx(@max-width; @rules) {
+  @media only screen and (max-width: @max-width) {
+    @rules();
+  }
+}
+.opacity(@opacity: 0.5) {
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  -webkit-opacity: @opacity;
+  opacity: @opacity;
+  @opperc: @opacity * 100;
+  -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+  filter: ~"alpha(opacity=@{opperc})";
+}
+.perspective (@value: 1000) {
+  -webkit-perspective: 	@value;
+  -moz-perspective: 	@value;
+  -ms-perspective: 	@value;
+  perspective: 		@value;
+}
+// Placeholders
+.ph(@color: #ccc) {
+  input::-webkit-input-placeholder { color: @color; }
+  input:-moz-placeholder { color: @color; }
+  textarea::-webkit-input-placeholder { color: @color; }
+  textarea:-moz-placeholder { color: @color; }
+}
+.rotate (@deg) {
+  -webkit-transform: rotate(@deg);
+  -moz-transform: 	 rotate(@deg);
+  -ms-transform: 		 rotate(@deg);
+  -o-transform: 		 rotate(@deg);
+}
+.scale (@factor) {
+  -webkit-transform: scale(@factor);
+  -moz-transform: 	 scale(@factor);
+  -ms-transform: 		 scale(@factor);
+  -o-transform: 		 scale(@factor);
+}
+// Inclinaison 2d
+.skew (@deg, @deg2) {
+  -webkit-transform:       skew(@deg, @deg2);
+  -moz-transform: 	 skew(@deg, @deg2);
+  -ms-transform: 		 skew(@deg, @deg2);
+  -o-transform: 		 skew(@deg, @deg2);
+}
+// Social links
+.social-link(@color; @unicode) {
+  color:@color; border-color:@color;
+  &:before { content:@unicode; }
+  &:hover { background-color:@color; color:white; }
+}
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+  text-shadow: @string;
+}
+.transform(@string){
+  -webkit-transform: @string;
+  -moz-transform: 	 @string;
+  -ms-transform: 		 @string;
+  -o-transform: 		 @string;
+}
+.transform-origin (@x:center, @y:center) {
+  -webkit-transform-origin: @x @y;
+  -moz-transform-origin:    @x @y;
+  -ms-transform-origin:     @x @y;
+  -o-transform-origin:      @x @y;
+}
+.transition(@duration:0.2s, @ease:ease-out) {
+  -webkit-transition: all @duration @ease;
+  -moz-transition: all @duration @ease;
+  -o-transition: all @duration @ease;
+  transition: all @duration @ease;
+}
+.transition-duration(@duration: 0.2s) {
+  -moz-transition-duration: @duration;
+  -webkit-transition-duration: @duration;
+  -o-transition-duration: @duration;
+  transition-duration: @duration;
+}
+.translate (@x, @y:0) {
+  -webkit-transform:       translate(@x, @y);
+  -moz-transform: 	 translate(@x, @y);
+  -ms-transform: 		 translate(@x, @y);
+  -o-transform: 		 translate(@x, @y);
+}
+.translate3d (@x, @y: 0, @z: 0) {
+  -webkit-transform:       translate3d(@x, @y, @z);
+  -moz-transform: 	 translate3d(@x, @y, @z);
+  -ms-transform: 		 translate3d(@x, @y, @z);
+  -o-transform: 		 translate3d(@x, @y, @z);
+}
+// Allows you to disable text highlighting, which can be useful on interface elements.
+.user-select(@argument: none) {
+  -webkit-user-select: @argument;
+  -moz-user-select: @argument;
+  -ms-user-select: @argument;
+  user-select: @argument;
+}
+// Add a black layout to a background
+// Call in &:before or after
+.voile(@my-opacity: .5, @grey: 0) {
+  background: rgba(@grey, @grey, @grey, @my-opacity);
+  bottom: 0;
+  content: "";
+  left: 0;
+  opacity: 1;
+  position: absolute; // consider position fixed to avoir bugs on scroll if too much content
+  right: 0;
+  top: 0;
+  z-index: 0;
+}
+
+// To sort / test
+// Background management (responsive portrait/landscape)
+.background-highlight(@XSmaxHeight: 400px) {
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  max-height: @XSmaxHeight;
+  opacity: 1;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+
+  .landscape {
+    display: none;
+
+    // >XS
+    .-xs({
+      display: block;
+      height: 100%;
+    });
+
+    .mqmn(540px, {
+      height: auto;
+      width: 100%;
+    });
+  }
+  .portrait {
+    width: 100%;
+
+    // >XS
+    .-xs({
+      display: none;
+    });
+  }
+}
+
+
+
+
+
 
 
 

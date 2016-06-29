@@ -8,8 +8,9 @@
     "leadingUnderscore": true
   },
   "zeroUnit": {
-      "exclude": [ // Some properties are allowed to equal 0
-        "margin"
-      ]
+    // "exclude": [ // Some properties are allowed to equal 0
+    //   "margin"
+    // ]
+    "enabled": false
   }
 }
