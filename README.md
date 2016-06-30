@@ -77,9 +77,8 @@ Add basic js
 - on resize throttle
 
 Add mixins collections
-
 Remove FOUC
-
+Checkbox & radio full custo > + Add possibilty to change font family & font icon
 
 
 

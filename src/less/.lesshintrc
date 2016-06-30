@@ -1,6 +1,21 @@
 {
   // gulp-lesshint configuration file. Gulp task "lintLess"
   // Config doc  /  https://github.com/lesshint/lesshint/blob/master/lib/linters/README.md#zerounit
+  "decimalZero": {
+    "enabled": false // I like my .5
+  },
+  "duplicateProperty": {
+    "exclude": [
+      "background", // Not relevant, ex for gradient bg
+      "background-image",
+      "display",
+      "filter",
+      "text-overflow"
+    ]
+  },
+  "hexLength": {
+    "enabled": false // I like mah #ccc
+  },
   "importPath": {
     "exclude": [
       "node_modules/normalize.less/normalize" // why want to force _ ?
