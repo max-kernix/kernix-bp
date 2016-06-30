@@ -21,9 +21,20 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/visuals/misc/favicon.ico">
+
+    <!-- Prevent FOUC -->
+    <style type="text/css">
+      .fouc {
+        display: none;
+      }
+    </style>
+    <script type="text/javascript">
+      document.documentElement.className = 'fouc';
+    </script>
+
   </head>
 
-  <body>
+  <body class="fouc">
 
     <h1>Hello world !</h1>
 

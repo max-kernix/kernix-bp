@@ -75,11 +75,8 @@ Doc
 - Ressources location
 
 Add basic js
-- eEasy imports
 - on resize throttle
 
-Add mixins collections
-Remove FOUC
 Checkbox & radio full custo > + Add possibilty to change font family & font icon
 
 
