@@ -312,11 +312,11 @@
   -o-transform-origin: @x @y;
   -webkit-transform-origin: @x @y;
 }
-.transition(@duration: 0.2s, @ease:ease-out) {
-  -moz-transition: all @duration @ease;
-  -o-transition: all @duration @ease;
-  -webkit-transition: all @duration @ease;
-  transition: all @duration @ease;
+.transition(@duration: 0.2s, @ease:ease-out, @type: all) {
+  -moz-transition: @type @duration @ease;
+  -o-transition: @type @duration @ease;
+  -webkit-transition: @type @duration @ease;
+  transition: @type @duration @ease;
 }
 .transition-duration(@duration: 0.2s) {
   -moz-transition-duration: @duration;

@@ -3,8 +3,10 @@
   "description": "Kernix boilerplate : gulp, less, basic structure",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "babel-preset-es2015": "^6.9.0",
     "chalk": "^1.1.3",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^2.0.10",
     "gulp-concat": "^2.6.0",

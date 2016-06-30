@@ -40,8 +40,10 @@ src/assets
 
 ## Dependencies
 - autoprefixer // Css prefixes
+- babel-preset-es2015 // JS ES2015
 - chalk // Colored console
 - gulp // Task manager
+- gulp-babel // JS ES2015
 - gulp-clean // Remove /dist content via gulp cean
 - gulp-clean-css // Minify css
 - gulp-html5-lint // Display html warnigns & errors

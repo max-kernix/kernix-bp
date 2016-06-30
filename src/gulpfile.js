@@ -1,5 +1,6 @@
 var
   autoprefixer      = require('autoprefixer'),
+  babel             = require('gulp-babel'),
   cleancss          = require('gulp-clean-css'),
   clean             = require('gulp-clean'),
   concat            = require('gulp-concat'),
@@ -19,7 +20,7 @@ var
   uglify            = require('gulp-uglify'),
   util              = require('gulp-util'),
   watch             = require('gulp-watch'),
-  // webpack           = require('webpack'),
+  webpack           = require('webpack'),
   zip               = require('gulp-zip');
 
 
@@ -71,7 +72,7 @@ gulp.task('clean', function () {
 
 //// gulp dist
 // Default task, create prod files in app
-gulp.task('dist', ['bower', 'html', 'less', 'js', 'assets']);
+gulp.task('dist', ['bower', 'html', 'less', 'js-es6', 'assets']);
 
 
 
@@ -96,7 +97,7 @@ gulp.task('images', function () {
 
 
 //// gulp js
-// Compile js through webpack
+// Compile js / classical
 gulp.task('js', function (callback) {
   // Jshint our files only
   // gulp.src('./js/**/*.js')
@@ -104,7 +105,7 @@ gulp.task('js', function (callback) {
     // './node_modules/jquery/dist/jquery.min.js', // jquery // jshint ko, added directly in index.html
     './js/**/*.js'
   ])
-    // .pipe(jshint('./js/.jshintrc')) // path to config file ko. // 0fcks given about .jshintignore too
+    .pipe(jshint('./js/.jshintrc')) // 0fcks given about .jshintignore
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     // .pipe(jshint.reporter('fail'))
@@ -117,9 +118,37 @@ gulp.task('js', function (callback) {
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('../dist/assets/js/'))
     .pipe(livereload());
+});
 
-  // no livereload w webpack ? :/
-  /*
+// Compile js / es6
+gulp.task('js-es6', function() {
+  return gulp.src('js/**/*.js')
+    // Js syntax verification
+    .pipe(jshint('./js/.jshintrc')) // 0fcks given about .jshintignore
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    // sourcemaps
+    .pipe(sourcemaps.init())
+    // es2015
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    // minify & concat
+    .pipe(uglify({
+      output: {
+        'ascii_only': true
+      }
+    }))
+    .pipe(concat('bundle.js'))
+    .pipe(sourcemaps.write('.'))
+    // move
+    .pipe(gulp.dest('../dist/assets/js/'))
+    .pipe(livereload());
+});
+
+// Compile js / webpack
+// no livereload w webpack ? :/
+gulp.task('js-webpack', function() {
   webpack({
     entry: {
       main: [
@@ -150,9 +179,6 @@ gulp.task('js', function (callback) {
 
     callback();
   })
-
-  //.pipe(livereload()
-  */
 });
 
 
@@ -207,7 +233,9 @@ gulp.task('watch', function () {
   livereload.listen();
   gulp.watch('./html/**/*.html', ['lintHtml', 'html']);
   gulp.watch('./less/**/*.less', ['lintLess', 'less']);
-  gulp.watch('./js/**/*.js', ['js']); // ko, miss .pipe(livereload()); in gulp webpack task
+  // gulp.watch('./js/**/*.js', ['js']);
+  gulp.watch('./js/**/*.js', ['js-es6']);
+  // gulp.watch('./js/**/*.js', ['js-webpack']);
 });
 
 
@@ -236,6 +264,7 @@ gulp.task('hello', function() {
   // util.log('Hello world!');
   console.log('Hello world!');
 });
+
 
 
 
